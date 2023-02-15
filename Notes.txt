@@ -1,0 +1,96 @@
+https://docs.djangoproject.com/en/4.1/ref/models/querysets/#field-lookups
+https://www.w3schools.com/django/django_update_data.php
+
+$ curl http://nodejs.org/dist/node-latest.tar.gz | tar xvz
+$ cd node-v*
+$ ./configure --prefix=$VIRTUAL_ENV
+$ make install
+
+python -m pip install --upgrade pip
+
+pip install django
+pip install djangorestframework
+python -m pip install django-cors-headers
+
+## DJANGO 
+django-admin startproject backend && cd backend
+django-admin startapp blog
+python manage.py makemigrations 
+python manage.py migrate  
+python manage.py createsuperuser --email admin@example.com --username admin 
+python manage.py runserver
+python manager.py shell
+
+## REACT
+npx create-react-app frontend
+cd frontend
+npm install bootstra axios
+
+## MODELS
+all()
+get()
+filter()
+exclude()
+
+objects.order_by
+
+[:5]  ==> (LIMIT 5)
+[5:10] ==> OFFSET 5 LIMIT 5
+
+---
+Blog.objects.get(name__iexact="beatles blog")
+Blog.objects.get(headline__contains="Lennon")
+
+contains, icontains, startswith, istartswith, endswith, iendswith
+
+Entry.objects.filter(id__in=[1, 3, 4])
+Entry.objects.filter(headline__in="abc") ==> WHERE headline IN ('a', 'b', 'c')
+
+1. gt => greater than
+	Entry.objects.filter(id__gt=4)
+2. gte => greater than or equal
+3. lt, lte
+
+4. range
+
+5. date
+	Entry.objects.filter(pub_date__date=datetime.date(2005, 1, 1))
+	Entry.objects.filter(pub_date__date__gt=datetime.date(2005, 1, 1))
+6. year
+	Entry.objects.filter(pub_date__year=2005)
+	Entry.objects.filter(pub_date__year__gte=2005)
+7. iso_year
+8. month
+	Entry.objects.filter(pub_date__month=12)
+	Entry.objects.filter(pub_date__month__gte=6)
+	SELECT ... WHERE EXTRACT('month' FROM pub_date) = '12';
+	SELECT ... WHERE EXTRACT('month' FROM pub_date) >= '6';
+9. day
+	Entry.objects.filter(pub_date__day=3)
+	Entry.objects.filter(pub_date__day__gte=3)
+	SELECT ... WHERE EXTRACT('day' FROM pub_date) = '3';
+	SELECT ... WHERE EXTRACT('day' FROM pub_date) >= '3';
+	
+10. week
+	Entry.objects.filter(pub_date__week=52)
+	Entry.objects.filter(pub_date__week__gte=32, pub_date__week__lte=38)
+	
+11. week_day (Sunday -> 1, Monday -> 2,.... Saturday -> 7)
+	Entry.objects.filter(pub_date__week_day=2)
+	Entry.objects.filter(pub_date__week_day__gte=2)
+
+12. quarter
+Entry.objects.filter(pub_date__quarter=2)
+time¶
+
+13. time
+	Entry.objects.filter(pub_date__time=datetime.time(14, 30))
+	Entry.objects.filter(pub_date__time__range=(datetime.time(8), datetime.time(17)))
+14. hour, minute, second
+
+15. isnull
+	Entry.objects.filter(pub_date__isnull=True)
+	
+
+
+
